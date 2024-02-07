@@ -59,6 +59,7 @@ const createPaginationControls = () => {
         pageSize: 1,
         showPrevious: true,
         showNext: true,
+      
         showPageNumbers: true,
         callback: function(data, pagination) {
             // We don't need to do anything here since we'll be using prevURL and nextURL to fetch data
