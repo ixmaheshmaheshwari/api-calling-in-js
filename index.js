@@ -63,6 +63,8 @@ const createPaginationControls = () => {
         callback: function(data, pagination) {
             // We don't need to do anything here since we'll be using prevURL and nextURL to fetch data
         },
+        
+
         afterPageOnClick: function(e, pageNumber) {
             // This function is called after clicking on a page number
             const url = `https://pokeapi.co/api/v2/pokemon?limit=10&offset=${(pageNumber - 1) * 10}`;
@@ -83,13 +85,14 @@ const createPaginationControls = () => {
 document.getElementById("fetchdata").addEventListener("click", function(){
     const url="https://pokeapi.co/api/v2/pokemon?limit=10&offset=0"
     fetchData(url);
+    createPaginationControls();
 
 })
    
 
 
 document.addEventListener("DOMContentLoaded", ()=>{
-    createPaginationControls();
+    
 
 })
 
