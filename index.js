@@ -1,28 +1,40 @@
 const fetchData = async(url)=>{
     const result= await fetch(url);
+   
     const pokemonData = await result.json();
+    const img= pokemonData.results.map(async pokemon => await fetch(pokemon.url).then(response => response.json()))
+const imgData = await Promise.all(img);   
+imgData.forEach((img) => {
+   console.log(img.sprites.other.showdown.front_default)
+   });
+ console.log(imgData)
      totalCount=pokemonData.count;
      pervURL=pokemonData.previous;
      nextURL=pokemonData.next;
-     displayData(pokemonData.results);
+     displayData(pokemonData.results,imgData);
 
 
 }
 var totalCount=1302;
 var nextURL="";
 var pervURL="";
-const displayData = (pokemonList) => {
-    
+const displayData = (pokemonList,imgData) => {
+    console.log(pokemonList)
+
     const container= document.getElementById("data");
    container.innerHTML = ""; 
    const dataElement= document.createElement("div");
    dataElement.id = "container"
    let dataText=""
-   pokemonList.forEach((pokemon) => {
-    dataText+= `
-    <div class="poke">${pokemon.name} </div>
-   
-    `;
+   pokemonList.forEach((pokemon, index) => {
+    const imgUrl = imgData[index] ? imgData[index].sprites.other.showdown.front_default : "";
+    console.log(imgUrl)
+
+        dataText+= `
+        <div class="poke" style="background-image: url(${imgUrl})">${pokemon.name} </div>
+       `;
+      
+        
    });
    dataElement.innerHTML=dataText
    container.appendChild(dataElement);
