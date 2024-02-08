@@ -1,6 +1,11 @@
 const fetchData = async(url)=>{
+    const container= document.getElementById("data");
+   container.innerHTML = ""; 
+    const loader = document.getElementById("loader");
+    loader.style.display = "block";
     const result= await fetch(url);
-   
+   const pagination=document.querySelector("#pagination-container");
+   pagination.innerHTML="";
     const pokemonData = await result.json();
     const img= pokemonData.results.map(async pokemon => await fetch(pokemon.url).then(response => response.json()))
 const imgData = await Promise.all(img);   
@@ -11,7 +16,11 @@ imgData.forEach((img) => {
      totalCount=pokemonData.count;
      pervURL=pokemonData.previous;
      nextURL=pokemonData.next;
-     displayData(pokemonData.results,imgData);
+    
+     setTimeout(() => {
+        loader.style.display = "none";
+        displayData(pokemonData.results,imgData);
+    }, 1000)
 
 
 }
@@ -98,7 +107,10 @@ const createPaginationControls = () => {
 document.getElementById("fetchdata").addEventListener("click", function(){
     const url="https://pokeapi.co/api/v2/pokemon?limit=10&offset=0"
     fetchData(url);
-    createPaginationControls();
+    setTimeout(() => {
+        createPaginationControls();
+    }, 1000)
+   
 
 })
    

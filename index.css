@@ -37,6 +37,22 @@
 
   }
    */
+   .loader {
+    border: 5px solid #f3f3f3;
+    border-top: 5px solid #f6ac24;
+    border-radius: 55%;
+    width: 25px;
+    height: 25px;
+    animation: spin 2s linear infinite;
+    display: none;
+    margin: 54px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
   .poke {
     display: flex;
     aspect-ratio: 3 / 2;
